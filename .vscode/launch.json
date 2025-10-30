@@ -16,7 +16,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "/Users/fmm/work/web/firstwebpage/web-project/first-website/index.html"
+            "file": "/Users/fmm/work/web/firstwebpage/web-project/index.html"
         }
     ]
 }
