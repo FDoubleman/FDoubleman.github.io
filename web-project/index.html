@@ -1,175 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="个人任务管理仪表板">
-    <title>任务管理</title>
+    <title>首页</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-    <div class="app-container">
-        <!-- 头部 -->
-        <header class="app-header">
-            <h1>我的任务</h1>
-            <div class="header-actions">
-                <button id="themeToggle" class="theme-toggle" title="切换主题">🌙</button>
-                <a href="sudoku.html" class="sudoku-link">数独游戏</a>
-            </div>
-        </header>
-
-        <!-- 统计面板 -->
-        <section class="stats-panel" id="statsPanel">
-            <div class="stat-card">
-                <div class="stat-value" id="totalTasks">0</div>
-                <div class="stat-label">总任务</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="completedTasks">0</div>
-                <div class="stat-label">已完成</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="completionRate">0%</div>
-                <div class="stat-label">完成率</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="todayTasks">0</div>
-                <div class="stat-label">今日任务</div>
-            </div>
-        </section>
-
-        <!-- 任务输入表单 -->
-        <section class="task-form-section">
-            <form class="task-form" id="taskForm">
-                <div class="form-row">
-                    <input 
-                        type="text" 
-                        id="taskInput" 
-                        class="task-input" 
-                        placeholder="添加新任务..." 
-                        required
-                        autocomplete="off"
-                    >
-                    <select id="taskCategory" class="category-select">
-                        <option value="工作">工作</option>
-                        <option value="学习">学习</option>
-                        <option value="生活">生活</option>
-                    </select>
-                    <select id="taskPriority" class="priority-select">
-                        <option value="低">低</option>
-                        <option value="中" selected>中</option>
-                        <option value="高">高</option>
-                    </select>
-                    <button type="submit" class="add-button">添加</button>
-                </div>
-            </form>
-        </section>
-
-        <!-- 筛选和搜索栏 -->
-        <section class="filter-section">
-            <div class="filter-controls">
-                <div class="filter-group">
-                    <label>筛选：</label>
-                    <button class="filter-btn active" data-filter="all">全部</button>
-                    <button class="filter-btn" data-filter="active">进行中</button>
-                    <button class="filter-btn" data-filter="completed">已完成</button>
-                </div>
-                <div class="filter-group">
-                    <label>分类：</label>
-                    <button class="category-filter-btn active" data-category="all">全部</button>
-                    <button class="category-filter-btn" data-category="工作">工作</button>
-                    <button class="category-filter-btn" data-category="学习">学习</button>
-                    <button class="category-filter-btn" data-category="生活">生活</button>
-                </div>
-                <div class="search-group">
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        class="search-input" 
-                        placeholder="搜索任务..."
-                        autocomplete="off"
-                    >
-                </div>
-                <div class="sort-group">
-                    <label>排序：</label>
-                    <select id="sortSelect" class="sort-select">
-                        <option value="time">按时间</option>
-                        <option value="priority">按优先级</option>
-                        <option value="category">按分类</option>
-                    </select>
-                </div>
-            </div>
-        </section>
-
-        <!-- 任务列表 -->
-        <section class="task-list-section">
-            <ul class="task-list" id="taskList">
-                <!-- 任务项将动态添加 -->
-            </ul>
-            <div class="empty-state" id="emptyState" style="display: none;">
-                <p>暂无任务，开始添加你的第一个任务吧！</p>
-            </div>
-        </section>
-
-        <!-- 任务详情/编辑模态框 -->
-        <div class="modal" id="taskModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 id="modalTitle">任务详情</h2>
-                    <button class="modal-close" id="modalClose">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="editTaskForm">
-                        <div class="form-field">
-                            <label for="editTaskText">任务内容：</label>
-                            <input 
-                                type="text" 
-                                id="editTaskText" 
-                                class="form-input" 
-                                required
-                                autocomplete="off"
-                            >
-                        </div>
-                        <div class="form-field">
-                            <label for="editTaskCategory">分类：</label>
-                            <select id="editTaskCategory" class="form-input">
-                                <option value="工作">工作</option>
-                                <option value="学习">学习</option>
-                                <option value="生活">生活</option>
-                            </select>
-                        </div>
-                        <div class="form-field">
-                            <label for="editTaskPriority">优先级：</label>
-                            <select id="editTaskPriority" class="form-input">
-                                <option value="低">低</option>
-                                <option value="中">中</option>
-                                <option value="高">高</option>
-                            </select>
-                        </div>
-                        <div class="form-field">
-                            <label for="editTaskDescription">描述：</label>
-                            <textarea 
-                                id="editTaskDescription" 
-                                class="form-input form-textarea" 
-                                rows="4"
-                                placeholder="添加任务描述..."
-                            ></textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="save-button">保存</button>
-                            <button type="button" class="cancel-button" id="cancelEdit">取消</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="container">
+        <h1>欢迎</h1>
+        <div class="button-wrapper">
+            <a href="sudoku.html">
+                <button id="openSudoku">玩数独小游戏</button>
+            </a>
         </div>
-
-        <!-- 导出按钮 -->
-        <div class="export-section">
-            <button id="exportBtn" class="export-button">导出数据</button>
+         <div class="button-wrapper">
+            <a href="todo.html">
+                <button id="openTodo">待办清单</button>
+            </a>
         </div>
     </div>
-
-    <script src="scripts/main.js"></script>
 </body>
+
 </html>
