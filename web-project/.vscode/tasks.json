@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Python HTTP Server",
+      "type": "shell",
+      "command": "python3 -m http.server 8000",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": [{ "regexp": "Serving HTTP on", "message": "" }],
+        "background": { "activeOnStart": true, "beginsPattern": "Serving HTTP on", "endsPattern": "Serving HTTP on" }
+      }
+    }
+  ]
+}

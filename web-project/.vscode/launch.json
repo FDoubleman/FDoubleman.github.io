@@ -5,10 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "name": "Serve & Launch Chrome (http.server)",
+            "type": "pwa-chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "/Users/fmm/work/web/firstwebpage/web-project/index.html",
+            "url": "http://localhost:8000",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start Python HTTP Server"
+        },
+        {
+            "name": "Attach to Running Chrome",
+            "type": "pwa-chrome",
+            "request": "attach",
+            "port": 9222,
             "webRoot": "${workspaceFolder}"
         }
     ]
