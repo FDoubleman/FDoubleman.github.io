@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>数独 - 小游戏</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 小范围覆盖样式，单页独用 */
+    .sudoku-wrapper{ max-width:840px;margin:24px auto;padding:18px;background:#fff;border-radius:8px;border:1px solid #ddd;}
+    .sudoku-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .sudoku-grid{display:grid;grid-template-columns:repeat(9,40px);grid-auto-rows:40px;gap:2px;background:#ddd;padding:6px;border-radius:6px}
+  .sudoku-cell{width:40px;height:40px;border:1px solid #cfcfcf;box-sizing:border-box;text-align:center;font-size:18px;background:#fff}
+    .sudoku-cell.clue{background:#f2f4f8;font-weight:700}
+    .sudoku-cell.incorrect{background:#f8d7da}
+    /* 加粗 3x3 边界 */
+  /* 为视觉上加强 3x3 区块边框，使用 outlines 在容器中模拟 */
+  /* 使用与单元格边框相同的灰色，保证整体边框颜色一致 */
+  .sudoku-grid .sudoku-cell:nth-child(3n){border-right:2px solid #cfcfcf}
+  .sudoku-grid .sudoku-cell:nth-child(27), .sudoku-grid .sudoku-cell:nth-child(54){border-bottom:2px solid #cfcfcf}
+    .sudoku-controls button{margin-left:8px;padding:6px 10px}
+    a.home-link{margin-left:8px}
+  </style>
+</head>
+<body>
+  <div class="sudoku-wrapper">
+    <div class="sudoku-header">
+      <h2>数独小游戏</h2>
+      <div class="sudoku-controls">
+        <label for="difficulty">难度：</label>
+        <select id="difficulty">
+          <option value="easy">简单</option>
+          <option value="medium" selected>普通</option>
+          <option value="hard">困难</option>
+        </select>
+        <button id="btnNew">新题</button>
+        <button id="btnCheck">检查</button>
+        <button id="btnSolve">显示答案</button>
+        <button id="btnReset">重置</button>
+        <a class="home-link" href="index.html"><button>返回首页</button></a>
+      </div>
+    </div>
+
+    <div id="sudokuGrid" class="sudoku-grid" aria-label="数独棋盘"></div>
+
+    <p style="margin-top:12px;color:#666;font-size:14px">说明：使用键盘输入数字1-9。点击“检查”标出错误格子，“显示答案”会填充解答，"重置" 恢复题目。</p>
+  </div>
+
+  <script src="scripts/sudoku.js"></script>
+</body>
+</html>

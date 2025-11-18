@@ -8,7 +8,19 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome to My First Website!</h1>
+    <h1>Welcome to My First Website! <small>（首页日历 demo）</small></h1>
+        <div id="calendarContainer">
+            <div id="calendar"></div>
+            <aside id="dateInfo">
+                <h3 id="infoTitle">请选择日期</h3>
+                <div id="infoBody">
+                    <p class="info-row"><strong>公历：</strong><span id="gDate">-</span></p>
+                    <p class="info-row"><strong>星期：</strong><span id="weekday">-</span></p>
+                    <p class="info-row"><strong>农历（示例）：</strong><span id="lunar">-</span></p>
+                    <p class="info-row"><strong>节日：</strong><span id="holiday">-</span></p>
+                </div>
+            </aside>
+        </div>
     <p>This is a simple HTML page created as my first website.</p>
     <h2>About Me</h2>
     <p>Hi! I'm excited to learn web development and create more websites in the future.</p>
@@ -24,6 +36,10 @@
     <a href="https://www.mozilla.org/zh-CN/about/manifesto/"> Mozilla Manifesto </a>
 
     <button>Change user</button>
+        <!-- Sudoku page button -->
+        <div style="margin-top:12px;">
+            <a href="sudoku.html"><button id="openSudoku">玩数独小游戏</button></a>
+        </div>
     <script src ="scripts/main.js"></script>
 </body>
 </html>
