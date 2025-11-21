@@ -1,16 +1,65 @@
 <!DOCTYPE html>
+<!-- 
+    HTML5 文档类型声明
+    待办事项（TODO）应用页面
+-->
 <html lang="zh-CN">
+<!-- 
+    lang="zh-CN"：指定页面语言为简体中文
+-->
 
 <head>
+    <!-- 
+        head 标签：包含页面的元数据和资源引用
+    -->
+    
+    <!-- 字符编码：UTF-8，支持中文显示 -->
     <meta charset="UTF-8">
+    
+    <!-- 
+        视口设置：响应式设计的关键
+        让页面在移动设备上正确显示
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 页面标题：显示在浏览器标签页上 -->
     <title>待办事项</title>
+    
+    <!-- 
+        引入外部样式表：style.css
+        这个文件包含了页面的主要样式
+    -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- 
+        style 标签：内联样式
+        这里定义了一些页面特定的样式
+        注意：通常建议将样式放在外部 CSS 文件中，但这里为了演示保留了内联样式
+    -->
     <style>
-        /* 基本样式（可移动到 style.css） */
+        /* 
+           基本样式（可移动到 style.css）
+           这些样式只在这个页面使用
+        */
+        
+        /* body 标签样式：页面主体 */
         body {
+            /* 
+               字体族：系统字体栈
+               -apple-system：macOS 和 iOS 系统字体
+               BlinkMacSystemFont：Chrome 在 macOS 上的系统字体
+               "Segoe UI"：Windows 系统字体
+               Roboto：Android 系统字体
+               "Helvetica Neue"：备用字体
+               Arial：最终备用字体
+               这样可以在不同系统上使用最佳字体
+            */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            
+            /* 内边距：20px，让内容不贴边 */
             padding: 20px;
+            
+            /* 背景色：浅灰色 */
             background: #f7f7f7;
         }
 
@@ -56,24 +105,10 @@
             color: #333;
         }
 
-        .filters {
-            display: flex;
-            gap: 6px;
-        }
-
-        .filters button {
-            padding: 6px 8px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            background: #fff;
-            cursor: pointer;
-        }
-
-        .filters button.active {
-            background: #1976d2;
-            color: #fff;
-            border-color: #1976d2;
-        }
+        /* 
+           筛选按钮样式已移至 style.css
+           这里不再需要内联样式，使用外部样式表统一样式
+        */
 
         .todo-list {
             margin-top: 12px;
@@ -139,46 +174,136 @@
 </head>
 
 <body>
+    <!-- 
+        body 标签：页面可见内容区域
+    -->
+    
+    <!-- 
+        todo-app：待办事项应用的主容器
+        role="application"：告诉屏幕阅读器这是一个应用程序
+        aria-label：为屏幕阅读器提供应用名称
+    -->
     <div class="todo-app" role="application" aria-label="待办事项应用">
+        <!-- 
+            h2：页面标题
+            显示"待办事项(TODO)"
+        -->
         <h2>待办事项(TODO)</h2>
-        <!-- 控制区：输入、新题、难度/排序/过滤等 -->
+        
+        <!-- 
+            控制区：包含输入框、按钮、过滤器等控制元素
+            aria-hidden="false"：告诉屏幕阅读器这个区域是可见的
+        -->
         <div class="controls" aria-hidden="false">
-            <!-- 新任务输入框 -->
+            <!-- 
+                新任务输入框
+                id="todoInput"：唯一标识符，JavaScript 通过这个 id 获取输入框
+                type="text"：文本输入框
+                placeholder：占位符文本，提示用户输入内容
+                aria-label：为屏幕阅读器提供输入框的说明
+            -->
             <input id="todoInput" type="text" placeholder="输入新任务并回车 点击添加" aria-label="新任务输入" />
-            <!-- 添加按钮 -->
+            
+            <!-- 
+                添加按钮
+                id="btnAdd"：唯一标识符，JavaScript 通过这个 id 绑定点击事件
+                点击这个按钮会添加新任务
+            -->
             <button id="btnAdd">添加任务</button>
 
 
 
-            <!-- 过滤器：全部/未完成/已完成 -->
+            <!-- 
+                过滤器：用于筛选任务（全部/未完成/已完成）
+                role="tablist"：告诉屏幕阅读器这是一个标签页列表
+                aria-label：为屏幕阅读器提供说明
+            -->
             <div class="filters" role="tablist" aria-label="任务过滤">
+                <!-- 
+                    全部按钮
+                    class="filter-btn active"：filter-btn 是按钮样式，active 表示当前选中
+                    data-filter="all"：自定义数据属性，JavaScript 通过这个值知道要显示全部任务
+                    role="tab"：告诉屏幕阅读器这是一个标签页
+                    aria-selected="true"：告诉屏幕阅读器这个选项当前被选中
+                -->
                 <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">全部</button>
+                
+                <!-- 未完成按钮：只显示未完成的任务 -->
                 <button class="filter-btn" data-filter="active" role="tab" aria-selected="false">未完成</button>
-                <button class="filter-btn" data-filter="completed" role="tab" aria-selected="false">已完成</button>
+                
+                <!-- 已完成按钮：只显示已完成的任务 -->
+                <button class="filter-btn" data-filter="done" role="tab" aria-selected="false">已完成</button>
             </div>
-            <!-- 排序选择（可按创建时间或优先级） -->
-
+            
+            <!-- 
+                排序选择下拉框
+                id="sortSelect"：唯一标识符
+                aria-label：为屏幕阅读器提供说明
+            -->
             <select id="sortSelect" aria-label="任务排序方式">
+                <!-- 
+                    option：下拉选项
+                    value：选项的值，JavaScript 通过这个值知道用户选择了哪种排序方式
+                -->
                 <option value="created_desc">按创建时间（新→旧）</option>
-                <option value="created_asc">按优先级（旧→新）</option>
+                <option value="created_asc">按创建时间（旧→新）</option>
                 <option value="priority_desc">按优先级（高→低）</option>
             </select>
         </div>
-        <!-- 任务列表容器（通过 JS 渲染） -->
+        
+        <!-- 
+            任务列表容器
+            id="todoList"：唯一标识符，JavaScript 会在这里动态添加任务项
+            class="todo-list"：CSS 类名，用于样式
+            aria-live="polite"：告诉屏幕阅读器当列表内容变化时，应该礼貌地通知用户
+            （polite 表示在用户不忙的时候再通知，不会打断用户）
+        -->
         <ul id="todoList" class="todo-list" aria-live="polite"></ul>
 
-        <!-- 底部信息与操作 -->
+        <!-- 
+            底部信息与操作区域
+            class="meta"：元信息区域，通常用于显示统计信息
+        -->
         <div class="meta">
+            <!-- 
+                任务计数器
+                id="counter"：唯一标识符，JavaScript 会更新这里的文本
+                显示任务总数和未完成任务数
+            -->
             <div id="counter">共 0 条</div>
+            
+            <!-- 操作按钮区域 -->
             <div>
+                <!-- 
+                    清除已完成任务按钮
+                    id="btnClearDone"：唯一标识符
+                    class="small-btn"：小按钮样式
+                    点击后会删除所有已完成的任务
+                -->
                 <button id="btnClearDone" class="small-btn">清除已完成</button>
-
             </div>
         </div>
+        
+        <!-- 
+            返回首页链接
+            href="index.html"：链接到首页
+            class="link-home"：链接样式类
+        -->
         <div>
             <a href="index.html" class="link-home">返回首页</a>
         </div>
-        <!-- 逻辑脚本 -->
+        
+        <!-- 
+            引入 JavaScript 脚本
+            src="scripts/todo.js"：脚本文件路径
+            这个文件包含了待办事项应用的所有逻辑：
+            - 添加任务
+            - 删除任务
+            - 编辑任务
+            - 标记完成/未完成
+            - 过滤和排序
+            - 本地存储（localStorage）
+        -->
         <script src="scripts/todo.js"></script>
 
 </html>
